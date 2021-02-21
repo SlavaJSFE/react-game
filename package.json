@@ -1,0 +1,35 @@
+{
+  "name": "react-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "develop": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlavaJSFE/react-game.git"
+  },
+  "keywords": [
+    "server",
+    "react"
+  ],
+  "author": "Viachaslau Shpileuski <viachaslau.shpileuski@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SlavaJSFE/react-game/issues"
+  },
+  "homepage": "https://github.com/SlavaJSFE/react-game#readme",
+  "dependencies": {
+    "config": "^3.3.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.17"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
