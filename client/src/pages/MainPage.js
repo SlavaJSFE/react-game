@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const StartPage = () => {
+export const MainPage = () => {
   return (
     <div>
-      <h1>Start Page</h1>
+      <h1>React Game</h1>
     </div>
   )
 }

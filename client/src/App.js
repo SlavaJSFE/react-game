@@ -1,10 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router} from 'react-router-dom';
+import { useRoutes } from './routes';
 
 function App() {
+  const routes = useRoutes();
   return (
-    <div className="container">
-      <h1>React Game</h1>
-    </div>
+    <Router>
+      <div className="container">
+        {routes}
+      </div>
+    </Router>
   )
 }
 
