@@ -23,12 +23,13 @@ module.exports = {
     new Webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
+    historyApiFallback: true,
     port: 3000,
     overlay: {
       warnings: true,
       errors: true,
     },
-    open: true,
+    open: false,
   },
   module: {
     rules: [
