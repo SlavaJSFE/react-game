@@ -1,0 +1,30 @@
+.game-board {
+  width: max-content;
+  padding: 20px 18px 20px 20px;
+  background-color: khaki;
+  margin: auto;
+}
+.board-head {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.cell-row {
+  display: flex;
+  margin-top: 2px;
+}
+.cell-close,
+.cell-open {
+  height: 20px;
+  width: 20px;
+  background-color: blue;
+  margin-right: 2px;
+}
+.cell-open {
+  background-color: khaki;
+}
+.cell:hover {
+  background-color: darkblue;
+}
