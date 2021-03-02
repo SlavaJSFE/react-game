@@ -1,34 +1,59 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Cell extends Component {
-  constructor(props) {
-    super(props)
+const Cell = (props) => {
+  const cellData = {
+    x: props.x,
+    y: props.y,
+    isOpen: props.isOpen,
+    hasMine: props.hasMine,
+    hasFlag: props.hasFlag,
+    minesAround: props.minesAround
+  }
 
-    this.state = {
-      x: props.xCoordinate,
-      y: props.yCoordinate,
-      isOpen: false,
-      hasMine: false,
-      minesNearby: 0
+  const cell = () => {
+    if (props.isOpen) {
+      if (props.hasMine) {
+        return (
+          <div className="cell-open">+</div>
+        )
+      } else if (props.minesAround === 0) {
+        return (
+          <div className="cell-open" />
+        )
+      }
+
+      return (
+        <div className="cell-open">
+          {props.minesAround}
+        </div>
+      )
+    } else if (props.hasFlag) {
+      return (
+        <div
+          className="cell"
+          onContextMenu={(event) => {
+            event.preventDefault();
+            props.setFlag(cellData);
+          }}
+        >
+          <div className="flag" />
+        </div>
+      )
     }
-  }
 
-  handleCellClick = () => {
-    this.setState({ isOpen: true })
-  }
-
-  render() {
     return (
       <div
-        className={this.state.isOpen? "cell-open" : "cell-close"}
-        onClick={this.handleCellClick}
+        className="cell"
+        onClick={() => props.openCell(cellData)}
         onContextMenu={(event) => {
           event.preventDefault();
-          console.log('right click')
+          props.setFlag(cellData);
         }}
       />
     )
   }
+
+  return cell()
 }
 
 export default Cell;
