@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import { Modal } from 'bootstrap';
+// import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import generateLayout from '../../../utils/generateLayout';
 import Counter from './Counter';
 import Timer from './Timer';
 import Row from './Row'
+import ModalWindow from './ModalWindow';
+
+// const modal = document.getElementById('staticBackdrop');
+// setTimeout(() => {
+//   console.log(modal);
+// }, 1000)
 
 class GameBoard extends Component {
   constructor() {
@@ -17,7 +25,12 @@ class GameBoard extends Component {
       time: 0,
       timer: null,
       openCells: 0,
-      layout: generateLayout(9, 9, 10)
+      layout: generateLayout(9, 9, 10),
+      message: {
+        title: null,
+        date: null,
+        time: null
+      }
     }
 
     this.baseState = this.state;
@@ -107,21 +120,32 @@ class GameBoard extends Component {
   }
 
   endGame = (result) => {
-    this.setState(
-      {gameStatus: 'ended'}
-    );
+    this.modalWindow = new Modal(document.getElementById('staticBackdrop'));
+
+    const message = {
+      time: this.state.time,
+      date: new Date()
+    }
 
     if (result === 'win') {
+      message.title = 'Congratulations! You Won!'
+      
       setTimeout(() => {
-
-      });
+        this.modalWindow.show();
+      }, 0);
     }
 
     if (result === 'lose') {
-      setTimeout(() => {
+      message.title = 'You Lose...';
 
-      });
+      setTimeout(() => {
+        this.modalWindow.show();
+      }, 0);
     }
+
+    this.setState(
+      {gameStatus: 'ended', message}
+    );
   }
 
   reset = () => {
@@ -180,6 +204,10 @@ class GameBoard extends Component {
 
     this.setState({ flags: this.state.flags + number});
   }
+  handleButtonNewGame = () => {
+    this.reset();
+    this.modalWindow.hide();
+  }
 
   renderRows() {
     const layout = this.state.layout;
@@ -200,6 +228,10 @@ class GameBoard extends Component {
 
     return (
       <div className="game-board">
+        <ModalWindow
+          handleButtonNewGame={this.handleButtonNewGame}
+          message={this.state.message}
+        />
         <div className="board-head">
           <Counter flags={this.state.flags}/>
           <button

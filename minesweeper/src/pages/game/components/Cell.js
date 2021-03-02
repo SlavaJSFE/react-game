@@ -14,7 +14,7 @@ const Cell = (props) => {
     if (props.isOpen) {
       if (props.hasMine) {
         return (
-          <div className="cell-open">+</div>
+          <div className="cell-open bg-danger">+</div>
         )
       } else if (props.minesAround === 0) {
         return (
