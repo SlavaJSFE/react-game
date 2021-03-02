@@ -14,7 +14,7 @@ class GameBoard extends Component {
       mines: 10, // mines: 10, mines: 40, mines: 99
       flags: 10,
       time: 0,
-      openCells: 0
+      openCells: 0,
     }
 
     this.baseState = this.state;
@@ -28,21 +28,15 @@ class GameBoard extends Component {
 
   checkIfWon = () => {
     if (this.state.mines + this.state.openCells === this.state.rows * this.state.columns) {
-      console.log('WIN!!!')
+      this.setState(
+        {gameStatus: 'ended'}
+      );
     }
   }
 
   reset = () => {
-    this.setState(this.baseState);
+    console.log('reset');
   }
-
-  // componentWillMount() {
-  //   this.intervals = [];
-  // }
-
-  // setInterval = (func, time) => {
-  //   this.intervals.push((func, time))
-  // }
 
   tick = () => {
     if(this.state.openCells > 0 && this.state.gameStatus === 'running') {
@@ -51,7 +45,7 @@ class GameBoard extends Component {
     }
   }
 
-  startGame = () => {
+  handleCellClick = () => {
     if (this.state.openCells === 0 && this.state.gameStatus !== 'running') {
       this.setState(
         {gameStatus: 'running'}
@@ -91,7 +85,7 @@ class GameBoard extends Component {
           mines={this.state.mines}
           flags={this.state.flags}
           gameStatus={this.state.gameStatus}
-          startGame={this.startGame}
+          handleCellClick={this.handleCellClick}
           changeFlagCount={this.changeFlagCount}
         />
       </div>

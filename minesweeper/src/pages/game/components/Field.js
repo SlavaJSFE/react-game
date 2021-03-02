@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import generateLayout from '../../../utils/generateLayout';
 import Row from './Row'
 
 class Field extends Component {
@@ -6,40 +7,40 @@ class Field extends Component {
     super(props);
 
     this.state = {
-      layout: this.createLayout(this.props.rows, this.props.columns)
+      layout: generateLayout(props.rows, props.columns, props.mines)
     }
   }
 
-  createLayout(rows, columns) {
-    const layout = [] ;
-    for (let i = 0; i < rows; i++) {
-      layout.push([])
-    }
-    layout.map((row, index) => {
-      for (let i = 0; i < columns; i++) {
-        row.push({
-          x: i,
-          y: index,
-          hasMine: false,
-          isOpen: false,
-          hasFlag: false,
-          minesAround: 0
-        })
-      }
-      return row;
-    });
+  // createLayout(rows, columns) {
+  //   const layout = [] ;
+  //   for (let i = 0; i < rows; i++) {
+  //     layout.push([])
+  //   }
+  //   layout.map((row, index) => {
+  //     for (let i = 0; i < columns; i++) {
+  //       row.push({
+  //         x: i,
+  //         y: index,
+  //         hasMine: false,
+  //         isOpen: false,
+  //         hasFlag: false,
+  //         minesAround: 0
+  //       })
+  //     }
+  //     return row;
+  //   });
 
-    for (let i = 0; i < this.props.mines; i++) {
-      const randomX = Math.floor(Math.random() * this.props.columns);
-      const randomY = Math.floor(Math.random() * this.props.rows);
+  //   for (let i = 0; i < this.props.mines; i++) {
+  //     const randomX = Math.floor(Math.random() * this.props.columns);
+  //     const randomY = Math.floor(Math.random() * this.props.rows);
 
-      const cellWithMine = layout[randomY][randomX];
+  //     const cellWithMine = layout[randomY][randomX];
 
-      cellWithMine.hasMine ? i-- : cellWithMine.hasMine = true;
-    }
+  //     cellWithMine.hasMine ? i-- : cellWithMine.hasMine = true;
+  //   }
 
-    return layout;
-  }
+  //   return layout;
+  // }
 
   setFlag = (cellData) => {
     if (this.props.gameStatus === 'ended'
@@ -80,7 +81,7 @@ class Field extends Component {
           console.log('end game');
         }
 
-        this.props.startGame();
+        this.props.handleCellClick();
 
         currentCell.isOpen = true;
         currentCell.minesAround = numberOfMines;
