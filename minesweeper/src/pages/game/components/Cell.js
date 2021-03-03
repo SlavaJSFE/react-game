@@ -1,5 +1,5 @@
 import React from 'react';
-import { clickSound } from '../../../utils/sounds';
+import { clickSound, playFlagSound } from '../../../utils/sounds';
 
 const Cell = (props) => {
   const cellData = {
@@ -35,6 +35,7 @@ const Cell = (props) => {
           onContextMenu={(event) => {
             event.preventDefault();
             props.setFlag(cellData);
+            playFlagSound();
           }}
         >
           <div className="flag" />
@@ -52,6 +53,7 @@ const Cell = (props) => {
         onContextMenu={(event) => {
           event.preventDefault();
           props.setFlag(cellData);
+          playFlagSound();
         }}
       />
     )

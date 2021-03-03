@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Modal } from 'bootstrap';
+import { Howl, Howler } from 'howler';
+import pirates from '../../../assets/sounds/pirates.mp3';
 import generateLayout from '../../../utils/generateLayout';
 import { clickSound, playWinSound, playLoseSound } from '../../../utils/sounds';
 import Counter from './Counter';
 import Timer from './Timer';
 import Row from './Row'
 import ModalWindow from './ModalWindow';
+import Volume from './Volume';
 
 class GameBoard extends Component {
   constructor() {
@@ -13,28 +16,39 @@ class GameBoard extends Component {
 
     this.state = {
       gameStatus: 'waiting',
-      rows: 9, // rows: 9, rows: 16, rows: 16
-      columns: 9, // columns: 9, columns: 16, columns: 30
-      mines: 10, // mines: 10, mines: 40, mines: 99
+      rows: 9,
+      columns: 9,
+      mines: 10,
       flags: 10,
       time: 0,
       timer: null,
       openCells: 0,
-      layout: generateLayout(9, 9, 10),
       message: {
         title: null,
         date: null,
         time: null
-      }
+      },
+      volume: 1
     }
 
+    this.state.layout = generateLayout(this.state.rows, this.state.columns, this.state.mines);
+
     this.baseState = this.state;
+
+    this.piratesSound = new Howl({
+      src: [pirates],
+      volume: 0.1,
+      loop: true,
+      html5: true
+    });
+    this.piratesSound.play();
   }
 
   componentDidUpdate() {
     if (this.state.gameStatus === 'running') {
       this.checkIfWon();
     }
+    Howler.volume(this.state.volume)
   }
 
   openCell = (cellData) => {
@@ -115,6 +129,7 @@ class GameBoard extends Component {
   }
 
   endGame = (result) => {
+    this.piratesSound.pause();
     this.modalWindow = new Modal(document.getElementById('staticBackdrop'));
 
     const message = {
@@ -146,14 +161,23 @@ class GameBoard extends Component {
   }
 
   reset = () => {
+    if (!this.piratesSound.playing()) {
+      this.piratesSound.play();
+    }
+
     clickSound();
-    this.setState(this.baseState);
 
-    const newLayout = generateLayout(9, 9, 10);
+    const newLayout = generateLayout(this.state.rows, this.state.columns, this.state.mines);
 
-    this.setState({ layout: newLayout });
+    this.setState({
+      gameStatus: 'waiting',
+      layout: newLayout,
+      time: 0,
+      openCells: 0,
+      flags: this.state.mines
+    });
     
-    clearInterval(this.state.timer)
+    clearInterval(this.state.timer);
   }
 
   tick = () => {
@@ -208,6 +232,55 @@ class GameBoard extends Component {
     this.modalWindow.hide();
   }
 
+  setBeginner = () => {
+    clickSound();
+    this.reset();
+
+    const state = {
+      rows: 9, 
+      columns: 9,
+      mines: 10,
+      flags: 10,
+    }
+    state.layout = generateLayout(state.rows, state.columns, state.mines);
+  
+    this.setState(state);
+  }
+
+  setIntermediate = () => {
+    clickSound();
+    this.reset();
+
+    const state = {
+      rows: 16, 
+      columns: 16,
+      mines: 40,
+      flags: 40,
+    }
+    state.layout = generateLayout(state.rows, state.columns, state.mines);
+  
+    this.setState(state);
+  }
+
+  setExpert = () => {
+    clickSound();
+    this.reset();
+
+    const state = {
+      rows: 16, 
+      columns: 30,
+      mines: 99,
+      flags: 99,
+    }
+    state.layout = generateLayout(state.rows, state.columns, state.mines);
+  
+    this.setState(state);
+  }
+
+  setVolume = (value) => {
+    this.setState({ volume: value})
+  }
+
   renderRows() {
     const layout = this.state.layout;
     return layout.map((row, rowIndex) => {
@@ -226,24 +299,61 @@ class GameBoard extends Component {
     const rows = this.renderRows();
 
     return (
-      <div className="game-board">
-        <ModalWindow
-          handleButtonNewGame={this.handleButtonNewGame}
-          message={this.state.message}
-        />
-        <div className="board-head">
-          <Counter flags={this.state.flags}/>
+      <div className="game-wrapper">
+        <div className="mode-buttons">
+
           <button
+            className="btn btn-primary shadow"
             type="button"
-            className="reset btn btn-primary"
-            onClick={this.reset}
+            onClick={this.setBeginner}
           >
-            Reset
+            Beginner
           </button>
-          <Timer time={this.state.time}/>
+
+          <button
+            className="btn btn-primary shadow"
+            type="button"
+            onClick={this.setIntermediate}
+          >
+            Intermediate
+          </button>
+
+          <button
+            className="btn btn-primary shadow"
+            type="button"
+            onClick={this.setExpert}
+          >
+            Expert
+          </button>
+
         </div>
-        <div className="field">
-          {rows}
+        <div>
+          <div className="game-board shadow">
+            <ModalWindow
+              handleButtonNewGame={this.handleButtonNewGame}
+              message={this.state.message}
+            />
+            <div className="board-head">
+              <Counter flags={this.state.flags}/>
+              <button
+                type="button"
+                className="reset btn btn-primary"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+              <Timer time={this.state.time}/>
+            </div>
+            <div className="field">
+              {rows}
+            </div>
+          </div>
+        </div>
+        <div>
+          <Volume
+            volume={this.state.volume}
+            setVolume={this.setVolume}
+          />
         </div>
       </div>
     )

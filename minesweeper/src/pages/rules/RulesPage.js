@@ -2,7 +2,7 @@ import React from 'react';
 
 export const RulesPage = () => {
   return (
-    <div>
+    <div className="container">
       <h1>Rules</h1>
     </div>
   )

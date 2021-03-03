@@ -1,7 +1,37 @@
 @import './pages/main/MainPage.scss';
 @import './pages/game/GamePage.scss';
+@import './pages/settings/SettingsPage.scss';
 
 h1 {
   color: red;
   text-align: center;
+}
+.minesweeper {
+  display: grid;
+  height: 100vh;
+}
+.footer {
+  height: 35px;
+  align-self: end;
+  padding: 0 50px;
+}
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+  a {
+    text-decoration: none;
+  }
+  div {
+    display: flex;
+    line-height: 2.1;
+  }
+}
+.rss-logo {
+  margin-top: 5px;
+  height: 25px;
 }

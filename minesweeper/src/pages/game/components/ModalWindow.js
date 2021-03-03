@@ -1,9 +1,15 @@
 import React from 'react';
+import countTime from '../../../utils/countTime';
 
 const ModalWindow = (props) => {
   const title = props.message.title;
-  // const date = props.message.date[0];
-  const time = props.message.time;
+  const time = countTime(props.message.time);
+  let date = props.message.date
+  if (date) {
+    
+    
+    date = date.toLocaleString();
+  }
 
   return (
     <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -14,8 +20,8 @@ const ModalWindow = (props) => {
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
-            {/* <span>Date: {date}</span> */}
-            <span>Time: {time}</span>
+            <div>Date: {date}</div>
+            <div>Game Time: {time}</div>
           </div>
           <div className="modal-footer">
             <a href="/" className="btn btn-secondary">Back To Main Menu</a>
