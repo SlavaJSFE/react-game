@@ -1,11 +1,19 @@
-.game {
+.game-wrapper {
   display: grid;
+  grid-template-rows: 20% 80%;
   height: 100vh;
+  justify-content: center;
+}
+.mode-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  align-self: center;
 }
 .game-board {
   width: max-content;
   padding: 20px 18px 20px 20px;
-  background-color: khaki;
+  background-color: rgb(240, 230, 140);
   margin: auto;
   border: 2px solid;
   border-radius: 5px;
@@ -16,6 +24,16 @@
   justify-content: space-around;
   text-align: center;
   margin-bottom: 15px;
+}
+.counter, .timer {
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: rgb(240, 248, 255);
+  line-height: 2;
+  width: 60px;
+}
+.timer {
+  justify-self: right;
 }
 .field {
   border: 1px solid;

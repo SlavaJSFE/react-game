@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from 'bootstrap';
-// import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import generateLayout from '../../../utils/generateLayout';
+import { clickSound, playWinSound, playLoseSound } from '../../../utils/sounds';
 import Counter from './Counter';
 import Timer from './Timer';
 import Row from './Row'
 import ModalWindow from './ModalWindow';
-
-// const modal = document.getElementById('staticBackdrop');
-// setTimeout(() => {
-//   console.log(modal);
-// }, 1000)
 
 class GameBoard extends Component {
   constructor() {
@@ -128,19 +123,21 @@ class GameBoard extends Component {
     }
 
     if (result === 'win') {
+      playWinSound();
       message.title = 'Congratulations! You Won!'
       
       setTimeout(() => {
         this.modalWindow.show();
-      }, 0);
+      }, 1000);
     }
 
     if (result === 'lose') {
+      playLoseSound();
       message.title = 'You Lose...';
 
       setTimeout(() => {
         this.modalWindow.show();
-      }, 0);
+      }, 2000);
     }
 
     this.setState(
@@ -149,6 +146,7 @@ class GameBoard extends Component {
   }
 
   reset = () => {
+    clickSound();
     this.setState(this.baseState);
 
     const newLayout = generateLayout(9, 9, 10);
@@ -204,6 +202,7 @@ class GameBoard extends Component {
 
     this.setState({ flags: this.state.flags + number});
   }
+
   handleButtonNewGame = () => {
     this.reset();
     this.modalWindow.hide();

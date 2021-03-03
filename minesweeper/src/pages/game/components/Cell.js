@@ -1,4 +1,5 @@
 import React from 'react';
+import { clickSound } from '../../../utils/sounds';
 
 const Cell = (props) => {
   const cellData = {
@@ -44,7 +45,10 @@ const Cell = (props) => {
     return (
       <div
         className="cell"
-        onClick={() => props.openCell(cellData)}
+        onClick={() => {
+          props.openCell(cellData);
+          clickSound();
+        }}
         onContextMenu={(event) => {
           event.preventDefault();
           props.setFlag(cellData);

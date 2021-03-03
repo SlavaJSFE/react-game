@@ -1,6 +1,15 @@
 import React from 'react';
+// import { Howl } from 'howler';
+// import sound from '../../assets/sounds/main-menu.mp3';
+// import click from '../../assets/sounds/button-click.mp3';
 
 export const MainPage = () => {
+  // new Howl({
+  //   src: [sound],
+  //   autoplay: true,
+  //   loop: true
+  // });
+  
   return (
     <div className="main-page">
       <h1>Minesweeper</h1>
