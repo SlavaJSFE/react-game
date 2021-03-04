@@ -1,37 +1,42 @@
 {
-  "name": "react-game",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js",
-    "client": "npm run start --prefix minesweeper",
-    "develop": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SlavaJSFE/react-game.git"
-  },
-  "keywords": [
-    "server",
-    "react"
-  ],
-  "author": "Viachaslau Shpileuski <viachaslau.shpileuski@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SlavaJSFE/react-game/issues"
-  },
-  "homepage": "https://github.com/SlavaJSFE/react-game#readme",
+  "name": "minesweeper",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "config": "^3.3.3",
-    "express": "^4.17.1",
-    "howler": "^2.2.1",
-    "mongoose": "^5.11.17",
-    "use-sound": "^2.0.1"
+    "@popperjs/core": "^2.8.4",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.3",
+    "bootstrap": "^5.0.0-beta2",
+    "node-sass": "^4.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.0"
   },
-  "devDependencies": {
-    "concurrently": "^6.0.0",
-    "nodemon": "^2.0.7"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

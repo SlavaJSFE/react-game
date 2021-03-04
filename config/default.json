@@ -1,4 +1,0 @@
-{
-  "port": 5000,
-  "mongoDB": "mongodb+srv://SlavaJSFE:5fN0oBN5bpZcACtn@cluster0.t4yv7.mongodb.net/react-game?retryWrites=true&w=majority"
-}
